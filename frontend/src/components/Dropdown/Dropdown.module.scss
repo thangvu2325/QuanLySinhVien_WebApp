@@ -1,0 +1,131 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  text-align: center;
+  .dropdown {
+    margin: auto;
+  }
+}
+
+.dropdown {
+  position: relative;
+  z-index: 1;
+  width: 20rem;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+  }
+  button {
+    display: flex;
+    align-items: center;
+    width: inherit;
+    height: 2.625rem;
+    padding: 8px 0;
+    h3 {
+      margin: 0;
+    }
+    cursor: pointer;
+    text-align: center;
+    background-color: white;
+    border: 2px solid #000;
+    .dropdown-label {
+      text-align: center;
+      width: 100%;
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.6rem;
+    }
+  }
+  &.isOpen {
+    .dropdown-form {
+      display: block;
+    }
+    .dropdown-arrow {
+      transform: rotate(45deg) translate(-5px, -5px);
+      &:before {
+        transform: translate(10px, 0);
+      }
+      &:after {
+        transform: rotate(90deg) translate(10px, 0);
+      }
+    }
+  }
+}
+
+.dropdown-form {
+  position: absolute;
+  display: none;
+  width: 100%;
+  background-color: white;
+  transition: 0.3s ease-in-out;
+}
+
+.dropdown-options {
+  position: relative;
+  max-height: 150px;
+  overflow-x: hidden;
+  overflow-y: overlay;
+  border-right: 2px solid #000;
+  border-left: 2px solid #000;
+  border-bottom: 2px solid #000;
+
+  .option {
+    text-align: center;
+    height: 2.5rem;
+    cursor: pointer;
+    border-right: 2px solid #000;
+
+    &:not(:last-child) {
+      border-bottom: 2px solid #000;
+    }
+    &:hover {
+      transition: 0.3s ease-in-out;
+      background-color: rgba($color: #fff, $alpha: 0.6);
+    }
+    label {
+      display: block;
+      width: 100%;
+      padding: 0.4375rem;
+      font-weight: regular;
+      text-transform: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.dropdown-arrow {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  position: relative;
+  bottom: -5px;
+  left: -15px;
+  transition: 0.3s ease;
+  margin-top: 2px;
+  text-align: left;
+  transform: rotate(45deg);
+  &:before,
+  &:after {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    width: 12px;
+    height: 3px;
+    background-color: black;
+    transition: 0.3s ease;
+  }
+  &:after {
+    position: absolute;
+    transform: rotate(90deg);
+    top: -5px;
+    left: 5px;
+  }
+}
