@@ -4,10 +4,9 @@ const Student = function (student) {
   this.ten_dem = student.ten_dem;
   this.ten = student.ten;
   this.gioi_tinh = Number(student.gioi_tinh);
-  this.lop = student.lop;
+  this.ten_lop = student.ten_lop;
   this.so_dien_thoai = student.so_dien_thoai;
-  this.nganh = student.nganh;
-  this.khoa = Number(student.khoa);
+  this.ten_nganh = student.ten_nganh;
 };
 Student.create = (newStudent, result) => {
   sql.query("INSERT INTO Students SET ?", newStudent, (err, res) => {

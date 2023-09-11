@@ -1,0 +1,23 @@
+.top {
+  margin: 10px 20px;
+  text-align: center;
+}
+.title {
+  font-size: 3rem;
+  font-weight: 600;
+  font-style: italic;
+}
+.content {
+  display: flex;
+  .right {
+    margin-left: auto;
+    width: fit-content;
+  }
+  .left {
+    button {
+      text-align: left;
+      font-size: 1.4rem;
+      background-color: var(--primary);
+    }
+  }
+}
