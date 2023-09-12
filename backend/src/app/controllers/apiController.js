@@ -61,7 +61,7 @@ class apiControllers {
       req.params.mssv,
       new Student({
         ...req.body,
-        gioi_tinh: req.body.gioi_tinh === "Nam" ? 1 : 0,
+        gioi_tinh: Number(req.body.gioi_tinh),
       }),
       (err, data) => {
         if (err) {
@@ -139,48 +139,47 @@ class apiControllers {
   //     } else res.send(data);
   //   });
   // }
-  // updateStudentByMssv(req, res) {
-  //   if (!req.body) {
-  //     res.status(400).send({
-  //       message: "Content can not be empty!",
-  //     });
-  //   }
-  //   Student.updateByMssv(
-  //     req.params.mssv,
-  //     new Student({
-  //       ...req.body,
-  //       gioi_tinh: req.body.gioi_tinh === "Nam" ? 1 : 0,
-  //     }),
-  //     (err, data) => {
-  //       if (err) {
-  //         if (err.kind === "not_found") {
-  //           res.status(404).send({
-  //             message: `Not found Student with mssv ${req.params.mssv}.`,
-  //           });
-  //         } else {
-  //           res.status(500).send({
-  //             message: "Error updating Student with mssv " + req.params.mssv,
-  //           });
-  //         }
-  //       } else res.send(data);
-  //     }
-  //   );
-  // }
-  // deleteStudentByMssv(req, res) {
-  //   Student.remove(req.params.mssv, (err, data) => {
-  //     if (err) {
-  //       if (err.kind === "not_found") {
-  //         res.status(404).send({
-  //           message: `Not found Student with mssv ${req.params.mssv}.`,
-  //         });
-  //       } else {
-  //         res.status(500).send({
-  //           message: "Could not delete Student with mssv " + req.params.mssv,
-  //         });
-  //       }
-  //     } else res.send({ message: `Student was deleted successfully!` });
-  //   });
-  // }
+  updateClassByMaLop(req, res) {
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content can not be empty!",
+      });
+    }
+    Class.updateByMaLop(
+      req.params.malop,
+      new Class({
+        ...req.body,
+      }),
+      (err, data) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found Class with Ma_Lop ${req.params.malop}.`,
+            });
+          } else {
+            res.status(500).send({
+              message: "Error updating Class with malop " + req.params.malop,
+            });
+          }
+        } else res.send(data);
+      }
+    );
+  }
+  deleteClassByMaLop(req, res) {
+    Class.remove(req.params.malop, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Lop with ma lop ${req.params.malop}.`,
+          });
+        } else {
+          res.status(500).send({
+            message: "Could not delete Lop with ma lop " + req.params.malop,
+          });
+        }
+      } else res.send({ message: `Class was deleted successfully!` });
+    });
+  }
 
   // Major
   addMajor(req, res) {
@@ -209,6 +208,49 @@ class apiControllers {
       else {
         res.status(200).json(data);
       }
+    });
+  }
+  updateNganhByMaNganh(req, res) {
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content can not be empty!",
+      });
+    }
+    Major.updateByMaNganh(
+      req.params.manganh,
+      new Major({
+        ...req.body,
+      }),
+      (err, data) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found Major with Ma_Nganh ${req.params.manganh}.`,
+            });
+          } else {
+            res.status(500).send({
+              message:
+                "Error updating Major with manganh " + req.params.manganh,
+            });
+          }
+        } else res.send(data);
+      }
+    );
+  }
+  deleteMajorByMaNganh(req, res) {
+    Major.remove(req.params.manganh, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found MAjor with manganh ${req.params.manganh}.`,
+          });
+        } else {
+          res.status(500).send({
+            message:
+              "Could not delete major with manganh " + req.params.manganh,
+          });
+        }
+      } else res.send({ message: `Major was deleted successfully!` });
     });
   }
 }

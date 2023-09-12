@@ -12,9 +12,11 @@ router.delete("/students/:mssv", apiController.deleteStudentByMssv);
 router.post("/classes", apiController.addClass);
 router.get("/classes", apiController.getAllClass);
 // router.get("/students/:mssv", apiController.getStudentByMssv);
-// router.put("/students/:mssv", apiController.updateStudentByMssv);
-// router.delete("/students/:mssv", apiController.deleteStudentByMssv);
+router.put("/classes/:malop", apiController.updateClassByMaLop);
+router.delete("/classes/:malop", apiController.deleteClassByMaLop);
 // Major
 router.post("/majors", apiController.addMajor);
 router.get("/majors", apiController.getAllMajor);
+router.put("/majors/:manganh", apiController.updateNganhByMaNganh);
+router.delete("/majors/:manganh", apiController.deleteMajorByMaNganh);
 module.exports = router;

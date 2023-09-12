@@ -28,7 +28,7 @@ Class.getAllClass = (result) => {
     result(null, res);
   });
 };
-Class.findByMssv = (mssv, result) => {
+Class.findByMaLop = (ma_lop, result) => {
   sql.query(
     `SELECT * FROM Danh_Sach_Lop WHERE ma_lop = '${ma_lop}'`,
     (err, res) => {
@@ -52,8 +52,30 @@ Class.findByMssv = (mssv, result) => {
 
 Class.updateByMaLop = (ma_lop, lop, result) => {
   sql.query(
-    "UPDATE Classs SET ten_lop = ?, khoa = ?, ten_nganh = ? ,ngay_bat_dau = ? WHERE ma_lop = ?",
+    "UPDATE danh_sach_lop SET ten_lop = ?, khoa = ?, ten_nganh = ? ,ngay_bat_dau = ? WHERE ma_lop = ?",
     [lop.ten_lop, lop.khoa, lop.ten_nganh, lop.ngay_bat_dau, ma_lop],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found Class with the ma_lop
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated Class: ", { ma_lop: ma_lop, ...Class });
+      result(null, { ma_lop: ma_lop, ...Class });
+    }
+  );
+};
+Class.remove = (ma_lop, result) => {
+  sql.query(
+    "DELETE FROM danh_sach_lop WHERE ma_lop = ?",
+    ma_lop,
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -67,27 +89,9 @@ Class.updateByMaLop = (ma_lop, lop, result) => {
         return;
       }
 
-      console.log("updated Class: ", { ma_lop: ma_lop, ...Class });
-      result(null, { ma_lop: ma_lop, ...Class });
+      console.log("deleted Class with ma_lop: ", ma_lop);
+      result(null, res);
     }
   );
-};
-Class.remove = (ma_lop, result) => {
-  sql.query("DELETE FROM Classs WHERE ma_lop = ?", ma_lop, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(null, err);
-      return;
-    }
-
-    if (res.affectedRows == 0) {
-      // not found Class with the mssv
-      result({ kind: "not_found" }, null);
-      return;
-    }
-
-    console.log("deleted Class with ma_lop: ", ma_lop);
-    result(null, res);
-  });
 };
 module.exports = Class;

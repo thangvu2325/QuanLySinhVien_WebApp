@@ -47,10 +47,10 @@ Major.findByMaNganh = (ma_nganh, result) => {
   );
 };
 
-Major.updateByMaLop = (ma_lop, lop, result) => {
+Major.updateByMaNganh = (ma_nganh, major, result) => {
   sql.query(
     "UPDATE Majors SET ten_nganh = ? WHERE ma_nganh = ?",
-    [lop.ten_nganh, ma_nganh],
+    [major.ten_nganh, ma_nganh],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -69,7 +69,7 @@ Major.updateByMaLop = (ma_lop, lop, result) => {
     }
   );
 };
-Major.remove = (ma_lop, result) => {
+Major.remove = (ma_nganh, result) => {
   sql.query("DELETE FROM Majors WHERE ma_nganh = ?", ma_nganh, (err, res) => {
     if (err) {
       console.log("error: ", err);

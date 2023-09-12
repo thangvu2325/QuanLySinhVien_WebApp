@@ -6,6 +6,7 @@ const Student = function (student) {
   this.gioi_tinh = Number(student.gioi_tinh);
   this.ten_lop = student.ten_lop;
   this.so_dien_thoai = student.so_dien_thoai;
+  this.khoa = student.khoa;
   this.ten_nganh = student.ten_nganh;
 };
 Student.create = (newStudent, result) => {
@@ -52,15 +53,15 @@ Student.findByMssv = (mssv, result) => {
 
 Student.updateByMssv = (mssv, student, result) => {
   sql.query(
-    "UPDATE students SET ho = ?, ten_dem = ?, ten = ? ,gioi_tinh = ?, lop = ?, khoa = ?, nganh= ?, so_dien_thoai = ? WHERE mssv = ?",
+    "UPDATE students SET ho = ?, ten_dem = ?, ten = ? ,gioi_tinh = ?, ten_lop = ?,khoa = ? ,ten_nganh= ?, so_dien_thoai = ? WHERE mssv = ?",
     [
       student.ho,
       student.ten_dem,
       student.ten,
       student.gioi_tinh,
-      student.lop,
+      student.ten_lop,
       student.khoa,
-      student.nganh,
+      student.ten_nganh,
       student.so_dien_thoai,
       mssv,
     ],

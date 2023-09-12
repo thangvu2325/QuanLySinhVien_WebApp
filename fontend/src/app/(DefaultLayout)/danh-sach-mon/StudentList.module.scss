@@ -1,0 +1,85 @@
+.top {
+  margin: 10px 20px;
+  text-align: center;
+}
+.title {
+  font-size: 3rem;
+  font-weight: 600;
+  font-style: italic;
+}
+.content {
+  display: flex;
+  .right {
+    margin-left: auto;
+    width: fit-content;
+  }
+  .left {
+    button {
+      text-align: left;
+      font-size: 1.4rem;
+      background-color: var(--primary);
+    }
+  }
+}
+// Modal Form
+.container-form {
+  label {
+    white-space: nowrap;
+    font-weight: 600;
+  }
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 16px 40px;
+  font-size: 1.4rem;
+  select,
+  input {
+    padding: 8px 16px;
+    font-size: 1.4rem;
+  }
+  input[type="radio"] {
+    padding: 8px 8px;
+  }
+}
+.name-list {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  .name {
+    display: flex;
+    align-items: center;
+    input {
+      line-height: 12px;
+      margin: 0 12px;
+      width: 80%;
+    }
+    .name-label,
+    .name-input {
+      display: flex;
+      flex-direction: column;
+    }
+    .blank {
+      margin-top: 2.5px;
+      height: 20px;
+      width: 20px;
+    }
+    .name-label {
+      label {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+.form-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.action {
+  width: 100%;
+  text-align: right;
+}
+.btn {
+  padding: 8px 16px;
+  font-size: 1.4rem;
+}
