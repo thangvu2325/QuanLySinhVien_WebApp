@@ -203,9 +203,6 @@ const ClassList: FunctionComponent<ClassListProps> = () => {
         <div className={cx("top")}>
           <h3 className={cx("title")}>Danh sách Lớp</h3>
           <div className={cx("content")}>
-            <div className={cx("left")}>
-              <Dropdown />
-            </div>
             <div className={cx("right")}>
               <SearchInput title="Search Lớp"></SearchInput>
             </div>

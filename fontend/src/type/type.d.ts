@@ -30,3 +30,7 @@ export interface IMajor {
   ma_nganh?: number;
   ten_nganh: string;
 }
+export interface ISubject {
+  ma_mon_hoc?: number;
+  ten_mon_hoc: string;
+}

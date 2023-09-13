@@ -1,49 +1,31 @@
 "use client";
 import { FunctionComponent, useEffect, useState } from "react";
-import styles from "./AddStudent.module.scss";
+import styles from "./AddSubject.module.scss";
 import classNames from "classnames/bind";
 import Form from "react-bootstrap/Form";
 import { Button } from "react-bootstrap";
-import { IStudent, IMajor, IClass } from "@/type/type";
-import { addStudent } from "@/api/request";
+import { ISubject } from "@/type/type";
+import { addSubject } from "@/api/request";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { classesSelector, majorsSelector } from "@/redux/selectors";
-import studentsSlice from "@/redux/Slice/studentsSlice";
+import { useDispatch } from "react-redux";
+import subjectsSlice from "@/redux/Slice/subjectsSlice";
 const cx = classNames.bind(styles);
-interface AddStudentPageProps {}
+interface AddSubjectPageProps {}
 
-const AddStudentPage: FunctionComponent<AddStudentPageProps> = () => {
-  const majorList: IMajor[] = useSelector(majorsSelector);
-  const classes: IClass[] = useSelector(classesSelector);
-  const initState: IStudent = {
-    ho: "",
-    ten_dem: "",
-    ten: "",
-    ten_nganh: "",
-    gioi_tinh: 0,
-    so_dien_thoai: "",
-    ten_lop: "",
+const AddSubjectPage: FunctionComponent<AddSubjectPageProps> = () => {
+  const initState: ISubject = {
+    ten_mon_hoc: "",
   };
   const dispatch = useDispatch();
   const [initialValues, setInitialValues] = useState(initState);
-  const handleChangeClass = (e: any) => {
-    console.log(e.target.value);
-    const classSelected = classes.filter(
-      (classItem) => classItem.ten_lop === e.target.value
-    )[0];
-    if (classSelected) {
-      setValue("ten_nganh", classSelected.ten_nganh);
-    }
-  };
-  const onSubmit = async (values: IStudent) => {
+  const onSubmit = async (values: ISubject) => {
     try {
-      await addStudent(values);
-      dispatch(studentsSlice.actions.addStudentToList(values));
-      alert(`Thêm Sinh Viên thành công`);
+      await addSubject(values);
+      dispatch(subjectsSlice.actions.addSubjectToList(values));
+      alert(`Thêm Môn học thành công`);
       reset(initialValues);
     } catch (error) {
-      alert(`Thêm Sinh Viên không thành công!`);
+      alert(`Thêm Môn học không thành công!`);
     }
   };
 
@@ -55,7 +37,6 @@ const AddStudentPage: FunctionComponent<AddStudentPageProps> = () => {
     register,
     handleSubmit,
     watch,
-    setValue,
     reset,
     formState: { errors },
   } = useForm({
@@ -80,166 +61,20 @@ const AddStudentPage: FunctionComponent<AddStudentPageProps> = () => {
           className={cx("container-form")}
           onSubmit={handleSubmit(onSubmit, onError)}
         >
-          <h3 className={cx("form-title")}>Thêm Sinh Viên</h3>
-          <Form.Group
-            className={cx("name-list")}
-            controlId="exampleForm.ControlInput1"
-          >
-            <Form.Group className={cx("name")}>
-              <div className={cx("name-label")}>
-                <Form.Label>Họ</Form.Label>
-                <div className={cx("blank")}></div>
-              </div>
-              <div className={cx("name-input")}>
-                <Form.Control
-                  type="text"
-                  placeholder="Vũ"
-                  {...register("ho", { required: "Field này là bắt buộc." })}
-                />
-                {errors.ho ? (
-                  <Form.Text
-                    className="text-danger"
-                    style={{ whiteSpace: "nowrap", paddingLeft: "12px" }}
-                  >
-                    {errors.ho.message}
-                  </Form.Text>
-                ) : (
-                  <div className={cx("blank")}></div>
-                )}
-              </div>
-            </Form.Group>
-
-            <Form.Group className={cx("name")}>
-              <div className={cx("name-label")}>
-                <Form.Label>Tên Đệm</Form.Label>
-                <div className={cx("blank")}></div>
-              </div>
-              <div className={cx("name-input")}>
-                <Form.Control
-                  type="text"
-                  placeholder="Đức"
-                  {...register("ten_dem", {
-                    required: "Field này là bắt buộc.",
-                  })}
-                />
-                {errors.ten_dem ? (
-                  <Form.Text
-                    className="text-danger"
-                    style={{ whiteSpace: "nowrap", paddingLeft: "12px" }}
-                  >
-                    {errors.ten_dem.message}
-                  </Form.Text>
-                ) : (
-                  <div className={cx("blank")}></div>
-                )}
-              </div>
-            </Form.Group>
-
-            <Form.Group className={cx("name")}>
-              <div className={cx("name-label")}>
-                <Form.Label>Tên</Form.Label>
-                <div className={cx("blank")}></div>
-              </div>
-              <div className={cx("name-input")}>
-                <Form.Control
-                  type="text"
-                  placeholder="Thắng"
-                  {...register("ten", { required: "Field này là bắt buộc." })}
-                />
-                {errors.ten ? (
-                  <Form.Text
-                    className="text-danger"
-                    style={{ whiteSpace: "nowrap", paddingLeft: "12px" }}
-                  >
-                    {errors.ten.message}
-                  </Form.Text>
-                ) : (
-                  <div className={cx("blank")}></div>
-                )}
-              </div>
-            </Form.Group>
-          </Form.Group>
+          <h3 className={cx("form-title")}>Thêm Môn Học</h3>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Tên ngành</Form.Label>
-            <Form.Select
-              aria-label="Tên ngành"
-              {...register("ten_nganh", { required: "Field này là bắt buộc." })}
-              disabled
-            >
-              <option>Open this select menu</option>
-              {majorList.length
-                ? majorList.map((major: IMajor) => (
-                    <option key={major.ma_nganh} value={major.ten_nganh}>
-                      {major.ten_nganh}
-                    </option>
-                  ))
-                : ""}
-            </Form.Select>
-            {errors.ten_nganh && (
-              <Form.Text className="text-danger">
-                {errors.ten_nganh.message}
-              </Form.Text>
-            )}
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Số điện thoại</Form.Label>
+            <Form.Label>Tên Môn Học</Form.Label>
             <Form.Control
               type="text"
-              placeholder="20"
-              {...register("so_dien_thoai", {
+              placeholder="Nhập Tên Môn Học"
+              {...register("ten_mon_hoc", {
                 required: "Field này là bắt buộc.",
               })}
             />
 
-            {errors.so_dien_thoai && (
+            {errors.ten_mon_hoc && (
               <Form.Text className="text-danger">
-                {errors.so_dien_thoai.message}
-              </Form.Text>
-            )}
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Lớp</Form.Label>
-            <Form.Select
-              aria-label="Lớp"
-              {...register("ten_lop", { required: "Field này là bắt buộc." })}
-              onChange={handleChangeClass}
-            >
-              <option>Open this select menu</option>
-              {classes.length
-                ? classes.map((lop: IClass) => (
-                    <option key={lop.ma_lop} value={lop.ten_lop}>
-                      {lop.ten_lop}
-                    </option>
-                  ))
-                : ""}
-            </Form.Select>
-            {errors.ten_lop && (
-              <Form.Text className="text-danger">
-                {errors.ten_lop.message}
-              </Form.Text>
-            )}
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="radio-with-other">
-            <Form.Check
-              type="radio"
-              label="Nam"
-              value={0}
-              {...register("gioi_tinh", {
-                required: "Field này là bắt buộc.",
-              })}
-            />
-            <Form.Check
-              type="radio"
-              label="Nữ"
-              value={1}
-              {...register("gioi_tinh", {
-                required: "Field này là bắt buộc.",
-              })}
-            />
-            {errors.gioi_tinh && (
-              <Form.Text className="text-danger">
-                {errors?.gioi_tinh?.message}
+                {errors.ten_mon_hoc.message}
               </Form.Text>
             )}
           </Form.Group>
@@ -254,4 +89,4 @@ const AddStudentPage: FunctionComponent<AddStudentPageProps> = () => {
   );
 };
 
-export default AddStudentPage;
+export default AddSubjectPage;

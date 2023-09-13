@@ -5,10 +5,10 @@ const route = {
   addStudent: "/danh-sach-sinh-vien/add",
   addSubjectforStudent: "/addmonhocforsinhvien",
   // Quản lý môn học
-  subjectList: "/danh-sach-mon-hoc",
-  editSubject: "/chinh-sua-mon-hoc",
-  addSubject: "danh-sach-mon-hoc/add",
-  deleteSubject: "/xoa-mon-hoc",
+  subjectList: "/danh-sach-mon",
+  editSubject: "/chinh-sua-mon",
+  addSubject: "danh-sach-mon/add",
+  deleteSubject: "/xoa-mon",
   // Quản lý ngành
   majorList: "/danh-sach-nganh",
   addMajor: "/danh-sach-nganh/add",

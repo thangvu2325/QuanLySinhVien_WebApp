@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 interface HeaderProps {}
 
 const Header: FunctionComponent<HeaderProps> = () => {
-  return <div className={cx("wrap")}>Header</div>;
+  return <div className={cx("wrap")}></div>;
 };
 
 export default Header;

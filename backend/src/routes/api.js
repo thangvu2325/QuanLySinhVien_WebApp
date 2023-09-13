@@ -19,4 +19,9 @@ router.post("/majors", apiController.addMajor);
 router.get("/majors", apiController.getAllMajor);
 router.put("/majors/:manganh", apiController.updateNganhByMaNganh);
 router.delete("/majors/:manganh", apiController.deleteMajorByMaNganh);
+// subject
+router.post("/subjects", apiController.addSubject);
+router.get("/subjects", apiController.getAllSubject);
+router.put("/subjects/:mamonhoc", apiController.updateSubjectByMaMonHoc);
+router.delete("/subjects/:mamonhoc", apiController.deleteSubjectByMaMonHoc);
 module.exports = router;

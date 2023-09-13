@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { fetchClassesData } from "@/redux/Slice/classesSlice";
 import { fetchStudentsData } from "@/redux/Slice/studentsSlice";
 import { fetchMajorsData } from "@/redux/Slice/majorSlice";
+import { fetchSubjectsData } from "@/redux/Slice/subjectsSlice";
 // import Footer from "@/layout/components/Footer";
 const cx = classNames.bind(styles);
 
@@ -27,6 +28,7 @@ export default function RootLayout({
     dispatch(fetchStudentsData());
     dispatch(fetchClassesData());
     dispatch(fetchMajorsData());
+    dispatch(fetchSubjectsData());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

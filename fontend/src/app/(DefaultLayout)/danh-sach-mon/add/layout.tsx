@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Thêm Sinh Viên",
+  title: "Thêm Môn Học",
   description: "Phần mềm quản lý sinh viên",
 };
 

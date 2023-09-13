@@ -4,7 +4,6 @@ import styles from "./StudentList.module.scss";
 import classname from "classnames/bind";
 import Table from "@/components/Table";
 import SearchInput from "@/components/SearchInput/SearchInput";
-import Dropdown from "@/components/Dropdown";
 import { deleteStudent, updateStudent } from "@/api/request";
 import { IClass, IMajor, IStudent } from "@/type/type";
 import { Button, Form } from "react-bootstrap";
@@ -17,9 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   classesSelector,
   majorsSelector,
-  studentsSelector,
+  studentsRemainingSelector,
 } from "@/redux/selectors";
 import studentsSlice from "@/redux/Slice/studentsSlice";
+import filtersSlice from "@/redux/Slice/filtersSlice";
 const cx = classname.bind(styles);
 
 interface StudentListProps {}
@@ -38,8 +38,9 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
     open_status: boolean;
     student: IStudent;
   }>({ open_status: false, student: {} as IStudent });
+  const [searchValue, setSearchValue] = useState<string>("");
   const pathname = usePathname();
-  const studentList: IStudent[] = useSelector(studentsSelector);
+  const studentList: IStudent[] = useSelector(studentsRemainingSelector);
   const majorList: IMajor[] = useSelector(majorsSelector);
   const classList: IClass[] = useSelector(classesSelector);
   const dispatch = useDispatch();
@@ -69,6 +70,9 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
     setModalDelete({ open_status: true, student });
     setShowModal(true);
   };
+  const onHideModalDelete = () => {
+    setModalDelete({ open_status: false, student: {} as IStudent });
+  };
   const onSubmit = async (values: IStudent) => {
     try {
       await updateStudent(values);
@@ -88,6 +92,10 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
       alert(`Xóa Sinh Viên không thành công!`);
     }
   };
+  const handleChangeSearchValue = (e: any) => {
+    setSearchValue(e.target.value);
+    dispatch(filtersSlice.actions.student_searchFilterChange(e.target.value));
+  };
   const handleChangeClass = (e: any) => {
     const classSelected = classList.filter(
       (classItem) => classItem.ten_lop === e.target.value
@@ -99,6 +107,7 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
   const onError = (error: any): void => {
     console.log("ERROR:::", error);
   };
+
   const {
     register,
     handleSubmit,
@@ -125,6 +134,7 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
     <>
       <ModalComponent
         onHide={onHide}
+        onHideModalDelete={onHideModalDelete}
         title={modalDelete.open_status ? "Xóa Sinh Viên" : "Sửa Sinh Viên"}
         show={showModal}
       >
@@ -344,11 +354,12 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
         <div className={cx("top")}>
           <h3 className={cx("title")}>Danh sách sinh viên</h3>
           <div className={cx("content")}>
-            <div className={cx("left")}>
-              <Dropdown />
-            </div>
             <div className={cx("right")}>
-              <SearchInput title="Search Sinh Viên"></SearchInput>
+              <SearchInput
+                value={searchValue}
+                onChange={handleChangeSearchValue}
+                title="Search Sinh Viên"
+              ></SearchInput>
             </div>
           </div>
         </div>

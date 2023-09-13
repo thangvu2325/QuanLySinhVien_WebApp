@@ -13,6 +13,8 @@ import studentsSlice from "./Slice/studentsSlice";
 import classesSlice from "./Slice/classesSlice";
 import authSlice from "./user/authSlice";
 import majorSlice from "./Slice/majorSlice";
+import subjectsSlice from "./Slice/subjectsSlice";
+import filtersSlice from "./Slice/filtersSlice";
 import storage from "redux-persist/lib/storage";
 const persistConfig = {
   key: "root",
@@ -30,6 +32,8 @@ export const store = configureStore({
     students: studentsSlice.reducer,
     classes: classesSlice.reducer,
     majors: majorSlice.reducer,
+    subjects: subjectsSlice.reducer,
+    filters: filtersSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

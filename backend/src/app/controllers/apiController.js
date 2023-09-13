@@ -1,6 +1,7 @@
 const Class = require("../models/Class");
 const Major = require("../models/Major");
 const Student = require("../models/Student");
+const Subject = require("../models/Subject");
 
 class apiControllers {
   // Student
@@ -251,6 +252,79 @@ class apiControllers {
           });
         }
       } else res.send({ message: `Major was deleted successfully!` });
+    });
+  }
+  // Subject
+  addSubject(req, res) {
+    // Validate request
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content can not be empty!",
+      });
+    }
+    const subject = new Subject(req.body);
+    Subject.create(subject, (err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Tutorial.",
+        });
+      else res.send(data);
+    });
+  }
+  getAllSubject(req, res) {
+    Subject.getAllSubject((err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving Subject.",
+        });
+      else {
+        res.status(200).json(data);
+      }
+    });
+  }
+  updateSubjectByMaMonHoc(req, res) {
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content can not be empty!",
+      });
+    }
+    Subject.updateByMaMonHoc(
+      req.params.mamonhoc,
+      new Subject({
+        ...req.body,
+      }),
+      (err, data) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found Subject with mamonhoc ${req.params.mamonhoc}.`,
+            });
+          } else {
+            res.status(500).send({
+              message:
+                "Error updating Subject with mamonhoc " + req.params.mamonhoc,
+            });
+          }
+        } else res.send(data);
+      }
+    );
+  }
+  deleteSubjectByMaMonHoc(req, res) {
+    Subject.remove(req.params.mamonhoc, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found MAjor with mamonhoc ${req.params.mamonhoc}.`,
+          });
+        } else {
+          res.status(500).send({
+            message:
+              "Could not delete major with mamonhoc " + req.params.mamonhoc,
+          });
+        }
+      } else res.send({ message: `Subject was deleted successfully!` });
     });
   }
 }

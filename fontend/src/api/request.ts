@@ -1,4 +1,4 @@
-import { IClass, IMajor, IStudent } from "@/type/type";
+import { IClass, IMajor, IStudent, ISubject } from "@/type/type";
 import axios from "axios";
 // Student
 export const getAllStudent = async () => {
@@ -114,6 +114,46 @@ export const updatedMajor = (major: IMajor) => {
 export const deleteMajorByMaNganh = (major: IMajor) => {
   axios
     .delete(`http://localhost:5000/api/majors/${major.ma_nganh}`)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+// Subject
+export const getAllSubject = async () => {
+  try {
+    const response = await axios.get("http://localhost:5000/api/subjects");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+export const addSubject = (subject: ISubject) => {
+  axios
+    .post("http://localhost:5000/api/subjects", subject)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+export const updatedSubject = (subject: ISubject) => {
+  axios
+    .put(`http://localhost:5000/api/subjects/${subject.ma_mon_hoc}`, subject)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+export const deleteSubjectByMaMonHoc = (subject: ISubject) => {
+  axios
+    .delete(`http://localhost:5000/api/subjects/${subject.ma_mon_hoc}`)
     .then(function (response) {
       console.log(response);
     })
