@@ -33,4 +33,14 @@ export interface IMajor {
 export interface ISubject {
   ma_mon_hoc?: number;
   ten_mon_hoc: string;
+  so_tin_chi: number;
+}
+export interface IDiem {
+  ma_diem?: number;
+  mssv?: string;
+  ma_mon_hoc?: number;
+  ten_mon_hoc?: string;
+  so_tin_chi?: number;
+  diem_qua_trinh?: number;
+  diem_thi?: number;
 }

@@ -1,4 +1,4 @@
-import { IClass, IMajor, IStudent, ISubject } from "@/type/type";
+import { IClass, IDiem, IMajor, IStudent, ISubject } from "@/type/type";
 import axios from "axios";
 // Student
 export const getAllStudent = async () => {
@@ -33,6 +33,50 @@ export const updateStudent = (student: IStudent) => {
 export const deleteStudent = (student: IStudent) => {
   axios
     .delete(`http://localhost:5000/api/students/${student.mssv}`)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+export const getScoreListForStudent = async (mssv: string) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5000/api/students/subjects/${mssv}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+};
+export const updateDiemForStudent = (score: IDiem) => {
+  axios
+    .put(`http://localhost:5000/api/students/subjects/${score.ma_diem}`, score)
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+export const deleteDiemOfStudent = (score: IDiem) => {
+  console.log(score);
+  axios
+    .delete(
+      `http://localhost:5000/api/students/subjects/${score.ma_diem}/${score.ma_diem}`
+    )
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
+export const AddSubjectOfStudent = (score: IDiem) => {
+  axios
+    .post(`http://localhost:5000/api/students/subjects/${score.mssv}`, score)
     .then(function (response) {
       console.log(response);
     })

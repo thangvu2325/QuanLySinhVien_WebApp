@@ -5,6 +5,13 @@ const apiController = require("../app/controllers/apiController");
 // Student
 router.post("/students", apiController.addStudent);
 router.get("/students", apiController.getAllStudent);
+router.get("/students/subjects/:mssv", apiController.getAllMonhocOfStudent);
+router.post("/students/subjects/:mssv", apiController.addSubjectForStudent);
+router.put("/students/subjects/:ma_diem", apiController.updateDiemForStudent);
+router.delete(
+  "/students/subjects/:mssv/:ma_diem",
+  apiController.deleteSubjectforStudent
+);
 router.get("/students/:mssv", apiController.getStudentByMssv);
 router.put("/students/:mssv", apiController.updateStudentByMssv);
 router.delete("/students/:mssv", apiController.deleteStudentByMssv);

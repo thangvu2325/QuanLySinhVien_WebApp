@@ -13,7 +13,7 @@ const SearchInput: FunctionComponent<SearchInputProps> = ({
 }) => {
   return (
     <div className="relative text-2xl bg-transparent text-gray-800">
-      <div className="flex items-center border-b border-b-2 border-teal-500 py-2">
+      <div className="flex items-center border-b-2 border-teal-500 py-2">
         <input
           className="bg-transparent border-none mr-3 px-2 leading-tight focus:outline-none"
           type="text"

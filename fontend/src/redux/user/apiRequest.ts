@@ -12,7 +12,7 @@ import {
 } from "./authSlice";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 export const loginUser = async (
-  user: { email: string; password: string },
+  user: { username: string; password: string },
   dispatch,
   router: AppRouterInstance
 ) => {

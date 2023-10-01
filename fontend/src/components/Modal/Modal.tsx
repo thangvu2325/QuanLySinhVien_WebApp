@@ -12,6 +12,7 @@ interface ModalProps {
   title: string;
   children: ReactNode;
   show?: boolean | undefined;
+  centered: boolean;
 }
 const ModalComponent: FunctionComponent<ModalProps> = ({
   onHide,
@@ -19,10 +20,17 @@ const ModalComponent: FunctionComponent<ModalProps> = ({
   title,
   children,
   show = false,
-  ...props
+  centered = false,
+  ...restProps
 }) => {
   return (
-    <Modal {...props} show={show} backdrop="static" keyboard={false}>
+    <Modal
+      {...restProps}
+      show={show}
+      backdrop="static"
+      keyboard={false}
+      centered={centered}
+    >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
         <CloseButton

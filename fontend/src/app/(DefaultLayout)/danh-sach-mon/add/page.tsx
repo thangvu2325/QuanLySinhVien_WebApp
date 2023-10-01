@@ -15,6 +15,7 @@ interface AddSubjectPageProps {}
 const AddSubjectPage: FunctionComponent<AddSubjectPageProps> = () => {
   const initState: ISubject = {
     ten_mon_hoc: "",
+    so_tin_chi: 0,
   };
   const dispatch = useDispatch();
   const [initialValues, setInitialValues] = useState(initState);
@@ -75,6 +76,22 @@ const AddSubjectPage: FunctionComponent<AddSubjectPageProps> = () => {
             {errors.ten_mon_hoc && (
               <Form.Text className="text-danger">
                 {errors.ten_mon_hoc.message}
+              </Form.Text>
+            )}
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Số tín chỉ</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nhập số tín chỉ"
+              {...register("so_tin_chi", {
+                required: "Field này là bắt buộc.",
+              })}
+            />
+
+            {errors.so_tin_chi && (
+              <Form.Text className="text-danger">
+                {errors.so_tin_chi.message}
               </Form.Text>
             )}
           </Form.Group>

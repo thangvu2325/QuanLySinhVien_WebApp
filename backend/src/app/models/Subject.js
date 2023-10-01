@@ -1,6 +1,7 @@
 const sql = require("./db.js");
 const Subject = function (subject) {
   this.ten_mon_hoc = subject.ten_mon_hoc;
+  this.so_tin_chi = subject.so_tin_chi;
 };
 Subject.create = (newSubject, result) => {
   sql.query("INSERT INTO Danh_Sach_Mon_Hoc SET ?", newSubject, (err, res) => {

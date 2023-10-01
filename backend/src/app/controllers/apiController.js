@@ -94,6 +94,84 @@ class apiControllers {
       } else res.send({ message: `Student was deleted successfully!` });
     });
   }
+  // SubjectForStudent
+  getAllMonhocOfStudent(req, res) {
+    Student.getAllMonhocOfStudent(req.params.mssv, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found MonHoc with mssv ${req.params.mssv}.`,
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving Monhoc with mssv " + req.params.mssv,
+          });
+        }
+      } else res.send(data);
+    });
+  }
+  // Add subject for Student
+  addSubjectForStudent(req, res) {
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content cannot be empty!",
+      });
+    }
+    Student.addMonhocForStudent(req.params.mssv, req.body, (err) => {
+      if (err) {
+        res.status(500).send({
+          message: "Error add Student with mssv " + req.params.mssv,
+        });
+      } else
+        res
+          .status(200)
+          .json({ message: "Thêm môn học cho sinh viên thành  công" });
+    });
+  }
+
+  deleteSubjectforStudent(req, res) {
+    Student.deleteMonhocForStudent(
+      req.params.mssv,
+      req.params.ma_diem,
+      (err) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found Subject with ma_diem ${req.params.ma_diem}.`,
+            });
+          } else {
+            res.status(500).send({
+              message:
+                "Could not delete Subject for Student with ma_diem " +
+                req.params.ma_diem,
+            });
+          }
+        } else res.send({ message: `Subject was deleted successfully!` });
+      }
+    );
+  }
+  updateDiemForStudent(req, res) {
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content cannot be empty!",
+      });
+    }
+    Student.updateMonhocForStudent(req.params.ma_diem, req.body, (err) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Subject with ma_diem ${req.params.ma_diem}.`,
+          });
+        } else {
+          res.status(500).send({
+            message:
+              "Could not update diem for Student with ma_diem " +
+              req.params.ma_diem,
+          });
+        }
+      } else res.send({ message: `Subject was updated successfully!` });
+    });
+  }
   // Class
   addClass(req, res) {
     // Validate request
@@ -102,7 +180,6 @@ class apiControllers {
         message: "Content can not be empty!",
       });
     }
-    console.log(req.body);
     const lop = new Class(req.body);
     Class.create(lop, (err, data) => {
       if (err)

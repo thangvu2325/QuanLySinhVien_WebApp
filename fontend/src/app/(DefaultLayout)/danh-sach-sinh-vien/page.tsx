@@ -30,6 +30,7 @@ const theadarray = [
   "Lớp",
   "Tình trạng học tập",
   "Khóa",
+  "Bảng Điểm",
   "Ngành",
 ];
 const StudentList: FunctionComponent<StudentListProps> = () => {
@@ -380,7 +381,13 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4">{student.khoa}</td>
-
+                <td className="px-6 py-4">
+                  <Link href={`${pathname}/${student.mssv}/danh-sach-diem`}>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 font-semibold text-green-600">
+                      [ Xem ]
+                    </span>
+                  </Link>
+                </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2">
                     <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 font-semibold text-blue-600">
@@ -410,7 +417,7 @@ const StudentList: FunctionComponent<StudentListProps> = () => {
                 colSpan={theadarray.length + 1}
                 style={{ padding: "16px 2px", textAlign: "center" }}
               >
-                Hiện tại không có ngành nào.! Vui lòng
+                Hiện tại không có sinh viên nào.! Vui lòng
                 <Link
                   href={`${pathname}/add`}
                   style={{ color: "#fe2c55", fontWeight: "600" }}

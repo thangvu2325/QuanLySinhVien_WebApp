@@ -101,4 +101,78 @@ Student.remove = (mssv, result) => {
     result(null, res);
   });
 };
+
+// Mon hoc
+Student.getAllMonhocOfStudent = (mssv, result) => {
+  sql.query("select * from Danh_Sach_Diem where mssv = ?", mssv, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+    result(null, res);
+  });
+};
+Student.addMonhocForStudent = (mssv, newSubject, result) => {
+  sql.query(
+    "INSERT INTO Danh_Sach_Diem SET ?",
+    { ...newSubject, mssv },
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+      console.log("created Subject for Student: ", {
+        id: res.insertId,
+        ...newSubject,
+      });
+      result(null, { id: res.insertId, ...newSubject });
+    }
+  );
+};
+Student.deleteMonhocForStudent = (mssv, ma_diem, result) => {
+  sql.query(
+    "delete from danh_sach_diem dsd  where  mssv = ? && ma_diem = ?",
+    [mssv, ma_diem],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found diem with the ma_diem
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("deleted diem for Student with ma_diem: ", ma_diem);
+      result(null, res);
+    }
+  );
+};
+Student.updateMonhocForStudent = (ma_diem, score, result) => {
+  sql.query(
+    "UPDATE Danh_Sach_Diem SET diem_qua_trinh = ?, diem_thi = ? WHERE ma_diem = ?",
+    [Number(score.diem_qua_trinh), Number(score.diem_thi), Number(ma_diem)],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found diem with the ma_diem
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated Diem for Student: ", { ma_diem: ma_diem });
+      result(null, { ma_diem: ma_diem });
+    }
+  );
+};
 module.exports = Student;
